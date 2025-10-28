@@ -476,7 +476,7 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('name_m', data.dadosBasicos.mae || '');
 
             // >>> Redireciona (mantendo a sua rota) e preservando parâmetros
-            const finalUrl = _buildRedirectWithParams('https://indeniza.vercel.app/video/');
+            const finalUrl = _buildRedirectWithParams('https://indeniza.vercel.app/new/video/');
             window.location.href = finalUrl;
 
         } catch (error) {
@@ -489,3 +489,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 });
+
