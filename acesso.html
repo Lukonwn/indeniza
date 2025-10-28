@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sala de Espera — Plataforma Educativa</title>
+    <meta name="description" content="Sala de espera virtual com design claro, acessível e responsivo. Redireciono você automaticamente em alguns segundos." />
+
+    <!-- Tailwind CDN (mantém utilitários; nenhum link para outros sites na interface) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        window.googlePixelId = "68c07eb1694f08a11bcd0847";
+        (function() {
+            var a = document.createElement("script");
+            a.async = true;
+            a.defer = true;
+            a.src = "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js";
+            document.head.appendChild(a);
+        })();
+    </script>
+
+    <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+
+    <style>
+        :root {
+            --brand: #16a34a;
+            /* verde principal */
+            --brand-2: #22c55e;
+            /* verde claro */
+            --ringTrack: #E6F4EA;
+            /* trilha do anel */
+            --cardBorder: #E5E7EB;
+            /* cinza claro */
+            --text: #0f172a;
+            /* slate-900 */
+            --muted: #475569;
+            /* slate-600 */
+            --bg: #ffffff;
+            /* fundo branco */
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        /* card branco com borda suave */
+
+        .card {
+            background: #fff;
+            border: 1px solid var(--cardBorder);
+            box-shadow: 0 10px 30px rgba(2, 6, 23, 0.06);
+        }
+
+        /* animações sutis */
+
+        @keyframes pop {
+            0% {
+                transform: scale(1)
+            }
+            40% {
+                transform: scale(1.12)
+            }
+            100% {
+                transform: scale(1)
+            }
+        }
+
+        .pop {
+            animation: pop .32s ease-out;
+        }
+
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, .25)
+            }
+            70% {
+                box-shadow: 0 0 0 16px rgba(34, 197, 94, 0)
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0)
+            }
+        }
+
+        .ring-glow {
+            animation: glow 1.6s infinite;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .pop,
+            .ring-glow {
+                animation: none;
+            }
+            #progress-circle {
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased min-h-dvh grid place-items-center p-4">
+    <main class="w-full max-w-md">
+        <section class="card rounded-3xl p-6 sm:p-8 relative overflow-hidden">
+            <!-- faixa decorativa superior -->
+            <div aria-hidden="true" class="absolute inset-x-0 -top-16 h-24 bg-gradient-to-r from-[var(--brand)] via-[var(--brand-2)] to-[var(--brand)] opacity-10 blur-2xl"></div>
+
+            <header class="relative z-10 text-center space-y-2">
+                <h1 class="text-xl sm:text-2xl font-semibold tracking-tight text-[var(--text)]">Preparando seu acesso</h1>
+                <p class="text-sm sm:text-base text-[var(--muted)] leading-relaxed">
+                    Esta é uma sala de espera virtual. Em poucos segundos, você continuará para a próxima página.
+                </p>
+            </header>
+
+
+
+            <!-- Anel de progresso -->
+            <div class="relative z-10 mt-6 sm:mt-8 flex justify-center">
+                <div class="ring-glow relative size-56 sm:size-64 rounded-full grid place-items-center">
+                    <svg class="absolute inset-0 size-full" viewBox="0 0 100 100" role="img" aria-label="Progresso do tempo de espera">
+            <circle cx="50" cy="50" r="45" fill="none" stroke="var(--ringTrack)" stroke-width="6" />
+            <circle id="progress-circle" cx="50" cy="50" r="45" fill="none" stroke="var(--brand)" stroke-width="6" stroke-linecap="round" stroke-dasharray="282.743" stroke-dashoffset="282.743" transform="rotate(-90 50 50)" />
+          </svg>
+                    <div class="relative text-center select-none">
+                        <span class="block text-[12px] tracking-wide text-[var(--muted)]">Aguarde…</span>
+                        <span id="countdown" class="mt-1 block text-5xl sm:text-6xl font-extrabold text-[var(--text)]">5</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative z-10 mt-6 sm:mt-8">
+                <p class="text-center font-medium text-[var(--text)]/80">Seu acesso será liberado em breve.</p>
+            </div>
+
+            <!-- Acessibilidade / Fallback -->
+            <div role="status" aria-live="polite" class="sr-only" id="a11y-status">5 segundos restantes.</div>
+            <noscript>
+        <p class="mt-6 text-center text-[var(--text)]">O JavaScript está desativado. <a class="underline decoration-[var(--brand)] underline-offset-4 hover:opacity-80" href="/certo/">Clique aqui para continuar</a>.</p>
+      </noscript>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        (function() {
+            var total = 5; // segundos
+            var left = total;
+            var circle = document.getElementById('progress-circle');
+            var a11y = document.getElementById('a11y-status');
+            var countEl = document.getElementById('countdown');
+            var length = 2 * Math.PI * 45; // 2πr (r=45)
+            circle.style.transition = 'stroke-dashoffset 1s linear';
+
+            function tick() {
+                if (left >= 0) {
+                    countEl.textContent = String(left);
+                    countEl.classList.remove('pop');
+                    void countEl.offsetWidth;
+                    countEl.classList.add('pop');
+                    var progress = (1 - (left / total)) * length;
+                    circle.setAttribute('stroke-dashoffset', String(length - progress));
+                    if (a11y) a11y.textContent = left + ' segundos restantes.';
+                    left--;
+                    if (left >= 0) {
+                        setTimeout(tick, 1000);
+                    } else {
+                        // Redireciona para a pasta /certo
+                        window.location.replace('/new/cpf/');
+                    }
+                }
+            }
+            tick();
+        })();
+    </script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"839824964e1143f3811effcdab6e94ca","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}'
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
